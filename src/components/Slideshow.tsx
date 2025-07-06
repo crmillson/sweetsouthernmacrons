@@ -89,7 +89,7 @@ const Slideshow = () => {
     <section className="slideshow-section">
       <div className="slideshow-container">
         <div className="slideshow-track" style={{ transform: transformValue }}>
-          {slides.map((slide, index) => (
+          {slides.map((slide) => (
             <div key={slide.id} className={`slide slide-${slide.color}`}>
               <div className="slide-content">
                 <div className="slide-image">
