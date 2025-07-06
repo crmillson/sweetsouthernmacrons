@@ -1,26 +1,65 @@
+import React, { useState, useEffect } from 'react'
+import ssmLogo from '../assets/SSM Logo.png'
+import bombPop from '../assets/bombPop.jpeg'
+import hawaii from '../assets/hawaii.jpeg'
+import herbal from '../assets/herbal.jpeg'
+
 const Hero = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  
+  const images = [
+    { src: bombPop, alt: 'Bomb Pop Macaron' },
+    { src: hawaii, alt: 'Hawaii Macaron' },
+    { src: herbal, alt: 'Herbal Macaron' }
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
+    }, 3000) // Change image every 3 seconds
+
+    return () => clearInterval(interval)
+  }, [images.length])
+
   return (
-    <section id="home" className="hero">
-      <div className="hero-background">
-        <div className="hero-shapes">
-          <div className="shape shape-1"></div>
-          <div className="shape shape-2"></div>
-          <div className="shape shape-3"></div>
+    <section className="hero-section">
+      <div className="hero-container">
+        <div className="hero-logo">
+          <img src={ssmLogo} alt="SSM Logo" className="ssm-logo" />
         </div>
-      </div>
-      <div className="container">
         <div className="hero-content">
-          <h1 className="hero-title fade-in-up">
-            Artisanal Macarons
-            <span className="gradient-text"> Made with Love</span>
-          </h1>
-          <p className="hero-subtitle fade-in-up">
-            Discover our handcrafted French macarons in delightful flavors, 
-            perfect for any occasion. Each bite is a moment of pure joy.
-          </p>
-          <div className="hero-buttons fade-in-up">
-            <a href="#products" className="btn btn-primary">Explore Flavors</a>
-            <a href="#contact" className="btn btn-secondary">Order Now</a>
+          <div className="hero-text">
+            <h1 className="hero-title">
+              Artisanal Macarons
+              <span className="hero-subtitle">Crafted with Love</span>
+            </h1>
+            <p className="hero-description">
+              Discover our spin on French macarons with a hint of Southern Hospitality
+              Each bite is a moment of pure delight, perfect for any occasion.
+            </p>
+          </div>
+          <div className="hero-image">
+            <div className="hero-image-container">
+              <div className="hero-slideshow">
+                {images.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image.src}
+                    alt={image.alt}
+                    className={`hero-slide ${index === currentImageIndex ? 'active' : ''}`}
+                  />
+                ))}
+                <div className="hero-slide-indicators">
+                  {images.map((_, index) => (
+                    <span
+                      key={index}
+                      className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
+                      onClick={() => setCurrentImageIndex(index)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
